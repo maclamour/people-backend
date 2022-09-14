@@ -1,17 +1,31 @@
 const express = require('express');
 const router = express.Router();
+const {Pet} = require('../models')
 
 ///////////////////////////////
 // ROUTES
 ////////////////////////////////
 
-router.get('/', async (req, res) => {
-    const context = {message: "Pet index route"};
-    res.status(200).json(context);
-})
+// PEOPLE INDEX ROUTE
+router.get("/", async (req, res) => {
+	try {
+    // get all people
+    res.json(await Pet.find({}));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
 
-router.post('/', async (req, res) => {
-    res.status(201).json({message: "Created more pets!"});
-})
+// PEOPLE CREATE ROUTE
+router.post("/", async (req, res) => {
+    try {
+      // create new person
+      res.json(await Pet.create(req.body));
+    } catch (error) {
+      //send error
+      res.status(400).json(error);
+    }
+  });
 
 module.exports = router;

@@ -2,44 +2,52 @@
 // DEPENDENCIES
 ////////////////////////////////
 
-const cors = require("cors")
-const morgan = require("morgan")
-
-// initialize .env variables
+// Init .env vars
 require("dotenv").config();
 
-// pull PORT from .env, give default value of 4000 and establish DB Connection
-// could use eirther port const 
 const { PORT, MONGODB_URI } = process.env;
-// const PORT= process.env.PORT
+// const PORT = process.env.PORT
+// const MONGODB_URI = process.env.MONGODB_URI
 
-// import express
 const express = require("express");
-
-// create application object
 const app = express();
 
-// import people router
+// Add in mongoose
+const mongoose = require('mongoose');
+
+// My controllers 
 const petController = require('./controllers/pet-controller')
 
+// Cors and morgan
+const cors = require("cors");
+const morgan = require("morgan");
+
 ///////////////////////////////
-// MIDDLEWARE
+// DATABASE CONNECTION
 ////////////////////////////////
-app.use(express.json()); // parse json bodies - this will run before our request accesses the people router
-app.use(cors()); // to prevent cors errors, open access to all origins
-app.use(morgan("dev")); // logging for development
-// all requests for endpoints that begin with '/people'
-app.use('/pet', petController)
 
+mongoose.connect(MONGODB_URI);
 
+// Connection Events
+
+///////////////////////////////
+mongoose.connection
+  .on("open", () => console.log("Your are connected to mongoose ✅✅✅"))
+  .on("close", () => console.log("Your are disconnected from mongoose 🔌⚡️🔌"))
+  .on("error", (error) => console.log(error));
+
+app.use('/people', petController);
 
 ///////////////////////////////
 // ROUTES
 ////////////////////////////////
 // create a test route
+
+
+
 app.get("/", (req, res) => {
-    res.send("Welcome To Our Pets 🤪");
-});
+    res.send("Hello world");
+})
 
 ///////////////////////////////
 // LISTENER
