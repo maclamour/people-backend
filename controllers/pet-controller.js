@@ -28,4 +28,41 @@ router.post("/", async (req, res) => {
     }
   });
 
+  // PEOPLE SHOW ROUTE
+router.get("/:id", async (req, res) => {
+    try {
+        // get people by ID
+        res.json(await Pet.findById(req.params.id));
+      } catch (error) {
+        //send error
+        res.status(400).json(error);
+      }
+});
+
+// PEOPLE UPDATE ROUTE
+router.put("/:id", async (req, res) => {
+  try {
+    // update people by ID
+    res.json(
+      await Pet.findByIdAndUpdate(req.params.id, req.body, {new:true})
+    );
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+// PEOPLE DELETE ROUTE
+router.delete("/:id", async (req, res) => {
+  try {
+    // delete people by ID
+    res.json(await Pet.findByIdAndRemove(req.params.id));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+  
+
 module.exports = router;

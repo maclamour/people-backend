@@ -18,9 +18,12 @@ const mongoose = require('mongoose');
 // My controllers 
 const petController = require('./controllers/pet-controller')
 
+
 // Cors and morgan
 const cors = require("cors");
 const morgan = require("morgan");
+
+
 
 ///////////////////////////////
 // DATABASE CONNECTION
@@ -35,6 +38,14 @@ mongoose.connection
   .on("open", () => console.log("Your are connected to mongoose ✅✅✅"))
   .on("close", () => console.log("Your are disconnected from mongoose 🔌⚡️🔌"))
   .on("error", (error) => console.log(error));
+
+///////////////////////////////
+// MiddleWare
+////////////////////////////////
+
+app.use(express.json()); // parse json bodies - this will run before our request accesses the people router
+app.use(cors()); // to prevent cors errors, open access to all origins
+app.use(morgan("dev")); // logging for development  
 
 app.use('/pet', petController);
 
