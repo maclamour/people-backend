@@ -36,7 +36,7 @@ mongoose.connection
   .on("close", () => console.log("Your are disconnected from mongoose 🔌⚡️🔌"))
   .on("error", (error) => console.log(error));
 
-app.use('/people', petController);
+app.use('/pet', petController);
 
 ///////////////////////////////
 // ROUTES
@@ -46,7 +46,7 @@ app.use('/people', petController);
 
 
 app.get("/", (req, res) => {
-    res.send("Hello world");
+    res.send("Welcome to our Pets 🤪");
 })
 
 ///////////////////////////////
