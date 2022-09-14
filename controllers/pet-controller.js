@@ -6,12 +6,12 @@ const router = express.Router();
 ////////////////////////////////
 
 router.get('/', async (req, res) => {
-    const context = {message: "people index route"};
+    const context = {message: "Pet index route"};
     res.status(200).json(context);
 })
 
 router.post('/', async (req, res) => {
-    res.status(201).json({message: "Created more people for us"});
+    res.status(201).json({message: "Created more pets!"});
 })
 
 module.exports = router;
