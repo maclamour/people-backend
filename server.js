@@ -4,40 +4,20 @@
 
 // Init .env vars
 require("dotenv").config();
+require('./config/db.connection')
+// pull PORT from .env, give default value of 4000 and establish DB Connection
 
-const { PORT, MONGODB_URI } = process.env;
+
 // const PORT = process.env.PORT
 // const MONGODB_URI = process.env.MONGODB_URI
-
-const express = require("express");
-const app = express();
-
-// Add in mongoose
-const mongoose = require('mongoose');
-
+const { PORT = 4000 } = process.env;
 // My controllers 
 const petController = require('./controllers/pet-controller')
 
 
-// Cors and morgan
-const cors = require("cors");
-const morgan = require("morgan");
 
+const express = require("express");
 
-
-///////////////////////////////
-// DATABASE CONNECTION
-////////////////////////////////
-
-mongoose.connect(MONGODB_URI);
-
-// Connection Events
-
-///////////////////////////////
-mongoose.connection
-  .on("open", () => console.log("Your are connected to mongoose ✅✅✅"))
-  .on("close", () => console.log("Your are disconnected from mongoose 🔌⚡️🔌"))
-  .on("error", (error) => console.log(error));
 
 ///////////////////////////////
 // MiddleWare
