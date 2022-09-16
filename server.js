@@ -17,7 +17,12 @@ const petController = require('./controllers/pet-controller')
 
 
 const express = require("express");
+// Cors and morgan
+const cors = require("cors");
+const morgan = require("morgan");
 
+
+const app = express();
 
 ///////////////////////////////
 // MiddleWare
